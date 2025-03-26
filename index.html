@@ -3,78 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calitate Aer și Temperatură - Adjud</title>
+  <title>Monitorizare Calitate Aer - Grupul Verde</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gradient-to-br from-green-200 to-blue-300 min-h-screen flex flex-col items-center justify-center p-6">
+<body class="bg-gradient-to-br from-green-100 to-blue-200 min-h-screen flex flex-col items-center p-6 font-sans">
 
-  <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-4xl text-center space-y-10">
+  <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-4xl text-center">
+    <h1 class="text-3xl font-bold text-green-800 mb-2">Monitorizare Calitate Aer și Temperatură - Adjud</h1>
+    <p class="text-gray-600 mb-6 text-sm">Un proiect educativ realizat de Asociația Grupul Verde împreună cu elevii din Adjud</p>
 
-    <header>
-      <h1 class="text-4xl font-bold text-gray-800">Monitorizare Calitate Aer și Temperatură</h1>
-      <p class="mt-2 text-gray-600 text-lg">Orașul Adjud, județul Vrancea</p>
-    </header>
+    <!-- Secțiune contribuție -->
+    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl mb-8 text-left">
+      <h2 class="text-xl font-semibold text-green-700">Despre proiect</h2>
+      <p class="text-gray-700 mt-2">Proiectul este dezvoltat de <strong>Asociația Grupul Verde</strong> și elevii implicați în educație pentru mediu. <strong>Novac Giorgio</strong>, 14 ani, elev la <strong>Colegiul Tehnic „Gheorghe Balș” Adjud</strong>, a avut un rol important în integrarea tehnologiei și testarea datelor live.</p>
+    </div>
 
-    <!-- Descriere proiect -->
-    <section class="text-left text-gray-700">
-      <h2 class="text-2xl font-semibold mb-2">Despre proiect</h2>
-      <p class="mb-4">
-        Acest proiect educativ este realizat cu sprijinul <strong>Asociației Grupul Verde</strong>, având ca scop monitorizarea calității aerului și a temperaturii în timp real în orașul Adjud.
-        Inițiativa face parte din programul nostru de educație pentru mediu și tehnologie, care încurajează tinerii să contribuie activ la protejarea mediului prin soluții digitale.
-      </p>
-      <p class="mb-4">
-        În mod deosebit, apreciem contribuția elevului <strong>Novac Giorgio</strong>, în vârstă de 14 ani, de la <em>Colegiul Tehnic "Gheorghe Balș" Adjud</em>, care a contribuit la dezvoltarea și testarea funcțională a platformei.
-        Giorgio este un exemplu de implicare și pasiune pentru tehnologie și ecologie!
-      </p>
-    </section>
-
-    <!-- Widget Calitate Aer -->
-    <section>
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">Calitatea Aerului în Adjud</h2>
-      <span id="city-aqi-container" class="block my-4"></span>
-    </section>
+    <!-- Calitate aer din API -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Calitatea Aerului (Stația A354850)</h2>
+      <div id="aqiBox" class="bg-blue-100 rounded-xl p-4">
+        <p class="text-lg">Indice AQI: <span id="aqiValue" class="font-bold">--</span></p>
+        <p id="aqiStatus" class="text-gray-700">Stare: --</p>
+        <p class="text-sm text-gray-500 mt-2">Date în timp real de la stația din Adjud</p>
+      </div>
+    </div>
 
     <!-- Temperatură -->
-    <section>
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">Temperatura actuală</h2>
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Temperatura actuală</h2>
       <p class="text-lg">Temperatură:
         <span id="temperatureValue" class="font-bold text-blue-700">--</span> °C
       </p>
       <p id="weatherStatus" class="text-md text-gray-600">Condiții: --</p>
-      <div class="w-full h-64 mt-4">
-        <canvas id="temperatureChart"></canvas>
-      </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="pt-6 border-t border-gray-200 text-sm text-gray-600">
-      © 2025 Asociația Grupul Verde • Dezvoltat de copii și tineri din comunitatea Adjud
-    </footer>
-
+    <!-- Grafic Temperatură -->
+    <div class="w-full h-64 mt-4">
+      <canvas id="temperatureChart"></canvas>
+    </div>
   </div>
 
-  <!-- Script AQICN (calitate aer) -->
-  <script type="text/javascript" charset="utf-8">
-    (function(w, d, t, f) {
-      w[f] = w[f] || function(c, k, n) {
-        s = w[f], k = s['k'] = (s['k'] || (k ? ('&k=' + k) : '')); 
-        s['c'] = c = (c instanceof Array) ? c : [c]; 
-        s['n'] = n = n || 0; 
-        L = d.createElement(t), e = d.getElementsByTagName(t)[0]; 
-        L.async = 1; 
-        L.src = '//feed.aqicn.org/feed/' + (c[n].city) + '/' + (c[n].lang || '') + '/feed.v1.js?n=' + n + k; 
-        e.parentNode.insertBefore(L, e);
-      };
-    })(window, document, 'script', '_aqiFeed');
-  </script>
+  <!-- Script pentru AQI API -->
+  <script>
+    async function fetchAQI() {
+      try {
+        const response = await fetch('https://api.waqi.info/feed/A354850/?token=dc84f2303d315146283658d56c82b955');
+        const data = await response.json();
+        const aqi = data.data.aqi;
+        const statusText = getAQIStatus(aqi);
 
-  <script type="text/javascript" charset="utf-8">
-    _aqiFeed({
-      container: "city-aqi-container",
-      city: "adjud",
-      lang: "ro"
-    });
+        document.getElementById('aqiValue').textContent = aqi;
+        document.getElementById('aqiStatus').textContent = `Stare: ${statusText.text}`;
+        document.getElementById('aqiBox').className = `rounded-xl p-4 ${statusText.color}`;
+      } catch (error) {
+        console.error('Eroare AQI:', error);
+        document.getElementById('aqiStatus').textContent = 'Eroare la preluarea datelor AQI.';
+      }
+    }
+
+    function getAQIStatus(aqi) {
+      if (aqi <= 50) return { text: "Bun", color: "bg-green-200" };
+      if (aqi <= 100) return { text: "Moderat", color: "bg-yellow-200" };
+      if (aqi <= 150) return { text: "Nesănătos pentru grupuri sensibile", color: "bg-orange-200" };
+      if (aqi <= 200) return { text: "Nesănătos", color: "bg-red-200" };
+      if (aqi <= 300) return { text: "Foarte Nesănătos", color: "bg-purple-200" };
+      return { text: "Periculos", color: "bg-black text-white" };
+    }
+
+    fetchAQI();
+    setInterval(fetchAQI, 300000); // actualizare la fiecare 5 minute
   </script>
 
   <!-- Script temperatură -->
@@ -129,13 +127,13 @@
         }
         tempChart.update();
       } catch (error) {
-        console.error('Eroare API:', error);
-        weatherStatus.textContent = "Nu s-au putut obține datele.";
+        console.error('Eroare temperatură:', error);
+        weatherStatus.textContent = "Eroare la preluarea datelor.";
       }
     }
 
     fetchTemperature();
-    setInterval(fetchTemperature, 60000); // actualizare la 1 minut
+    setInterval(fetchTemperature, 60000);
   </script>
 
 </body>
