@@ -57,7 +57,7 @@
     </section>
 
     <!-- Card coordonare -->
-    <section class="mt-10 bg-slate-100 rounded-xl p-6 text-gray-800 shadow-md">
+    <section class="mt-10 bg-slate-100 rounded-xl p-6 text-gray-800 shadow-md" id="echipa">
       <div class="flex items-center gap-3 mb-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8 3a1 1 0 100-2 1 1 0 000 2zm.75-7.75a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z" clip-rule="evenodd" />
@@ -83,7 +83,84 @@
     </ul>
   </div>
 </section>
+<!-- Infografice suplimentare -->
+<section class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white rounded-xl shadow-md p-5">
+    <h3 class="text-lg font-semibold text-gray-800 mb-2">Istoric temperatură - 7 zile</h3>
+    <canvas id="historyChart"></canvas>
+  </div>
+  <div class="bg-white rounded-xl shadow-md p-5">
+    <h3 class="text-lg font-semibold text-gray-800 mb-2">Date suplimentare meteorologice</h3>
+    <ul class="space-y-2 text-gray-700 text-sm">
+      <li>Aerul resimțit: <span id="feelsLike" class="font-semibold">--</span> °C</li>
+      <li>Presiune atmosferică: <span id="pressure" class="font-semibold">--</span> hPa</li>
+      <li>Indice UV: <span id="uvIndex" class="font-semibold">--</span></li>
+      <li>Viteza vântului: <span id="windSpeed" class="font-semibold">--</span> m/s</li>
+      <li>Umiditate: <span id="humidity" class="font-semibold">--</span> %</li>
+    </ul>
+  </div>
+</section>
 </main>
+
+<!-- Script pentru date meteo suplimentare și istoric -->
+<script>
+  const historyCtx = document.getElementById('historyChart').getContext('2d');
+  const historyChart = new Chart(historyCtx, {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Temperatura medie (°C)',
+        data: [],
+        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+        borderColor: 'rgba(5, 150, 105, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      responsive: true
+    }
+  });
+
+  async function fetchAdditionalWeather() {
+    try {
+      const res = await fetch('https://api.openweathermap.org/data/2.5/forecast/daily?q=Adjud,ro&cnt=7&units=metric&appid=345bfb1800c59f8f650f0159b1ad1a71');
+      const json = await res.json();
+
+      const currentRes = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Adjud,ro&units=metric&appid=345bfb1800c59f8f650f0159b1ad1a71');
+      const current = await currentRes.json();
+
+      document.getElementById('feelsLike').textContent = current.main.feels_like.toFixed(1);
+      document.getElementById('pressure').textContent = current.main.pressure;
+      document.getElementById('uvIndex').textContent = 'N/A'; // UV nu este disponibil aici
+      document.getElementById('windSpeed').textContent = current.wind.speed;
+      document.getElementById('humidity').textContent = current.main.humidity;
+
+      const labels = [];
+      const values = [];
+      json.list.forEach(day => {
+        const date = new Date(day.dt * 1000);
+        const label = date.toLocaleDateString('ro-RO', { weekday: 'short' });
+        labels.push(label);
+        values.push(day.temp.day.toFixed(1));
+      });
+
+      historyChart.data.labels = labels;
+      historyChart.data.datasets[0].data = values;
+      historyChart.update();
+
+    } catch (err) {
+      console.error('Eroare la preluarea datelor meteo:', err);
+    }
+  }
+
+  fetchAdditionalWeather();
+</script>
 
 <!-- Script pentru date meteo suplimentare și istoric -->
 <script>
@@ -146,18 +223,45 @@
 
   <!-- Footer elegant -->
   <footer class="w-full bg-slate-800 text-white py-6 mt-12">
-    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-      <div class="text-center md:text-left mb-4 md:mb-0">
-        <h3 class="text-lg font-semibold">Asociația Grupul Verde</h3>
-        <p class="text-sm text-slate-300">© 2025 Toate drepturile rezervate.</p>
-      </div>
-      <div class="flex space-x-4">
-        <a href="#" class="text-slate-300 hover:text-white text-sm">Despre</a>
-        <a href="#" class="text-slate-300 hover:text-white text-sm">Contact</a>
-        <a href="#" class="text-slate-300 hover:text-white text-sm">GitHub</a>
-      </div>
+  <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+    <div class="text-center md:text-left mb-4 md:mb-0">
+      <h3 class="text-lg font-semibold">Asociația Grupul Verde</h3>
+      <p class="text-sm text-slate-300">© 2025 Toate drepturile rezervate.</p>
     </div>
-  </footer>
+    <div class="flex space-x-4">
+      <button onclick="togglePopup('aboutPopup')" class="text-slate-300 hover:text-white text-sm">Despre</button>
+      <button onclick="togglePopup('contactPopup')" class="text-slate-300 hover:text-white text-sm">Contact</button>
+      <a href="#" class="text-slate-300 hover:text-white text-sm">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Pop-up Despre -->
+<div id="aboutPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full">
+    <h3 class="text-xl font-semibold mb-2 text-green-700">Despre Asociația Grupul Verde</h3>
+    <p class="text-sm text-gray-700 mb-4">Asociația Grupul Verde este o organizație non-guvernamentală care promovează educația ecologică, implicarea tinerilor în protecția mediului și utilizarea tehnologiei în scopuri sustenabile. Proiectul de monitorizare a calității aerului din Adjud a fost creat pentru a încuraja învățarea practică și folosirea datelor reale de către elevi.</p>
+    <button onclick="togglePopup('aboutPopup')" class="mt-2 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded">Închide</button>
+  </div>
+</div>
+
+<!-- Pop-up Contact -->
+<div id="contactPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+    <h3 class="text-xl font-semibold mb-2 text-green-700">Contact</h3>
+    <p class="text-sm text-gray-700">Adresa sediu: Strada Alexandru Ioan Cuza nr. 64, Adjud, Vrancea</p>
+    <p class="text-sm text-gray-700">Telefon: 07xx xxx xxx</p>
+    <p class="text-sm text-gray-700">Email: <a href="mailto:office@grupulverde.ro" class="text-blue-600 hover:underline">office@grupulverde.ro</a></p>
+    <button onclick="togglePopup('contactPopup')" class="mt-4 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded">Închide</button>
+  </div>
+</div>
+
+<script>
+  function togglePopup(id) {
+    const popup = document.getElementById(id);
+    popup.classList.toggle('hidden');
+  }
+</script>
 
   <!-- Script AQICN widget -->
   <script type="text/javascript" charset="utf-8">
