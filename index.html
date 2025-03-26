@@ -9,31 +9,52 @@
 </head>
 <body class="bg-gradient-to-br from-green-200 to-blue-300 min-h-screen flex flex-col items-center justify-center p-6">
 
-  <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-3xl text-center">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Calitate Aer și Temperatură - Adjud</h1>
+  <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-4xl text-center space-y-10">
 
-    <!-- Widget Calitate Aer dinamic (AQICN script oficial) -->
-    <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-4">Calitatea Aerului în timp real</h2>
-      <span id="city-aqi-container" class="block"></span>
-    </div>
+    <header>
+      <h1 class="text-4xl font-bold text-gray-800">Monitorizare Calitate Aer și Temperatură</h1>
+      <p class="mt-2 text-gray-600 text-lg">Orașul Adjud, județul Vrancea</p>
+    </header>
+
+    <!-- Descriere proiect -->
+    <section class="text-left text-gray-700">
+      <h2 class="text-2xl font-semibold mb-2">Despre proiect</h2>
+      <p class="mb-4">
+        Acest proiect educativ este realizat cu sprijinul <strong>Asociației Grupul Verde</strong>, având ca scop monitorizarea calității aerului și a temperaturii în timp real în orașul Adjud.
+        Inițiativa face parte din programul nostru de educație pentru mediu și tehnologie, care încurajează tinerii să contribuie activ la protejarea mediului prin soluții digitale.
+      </p>
+      <p class="mb-4">
+        În mod deosebit, apreciem contribuția elevului <strong>Novac Giorgio</strong>, în vârstă de 14 ani, de la <em>Colegiul Tehnic "Gheorghe Balș" Adjud</em>, care a contribuit la dezvoltarea și testarea funcțională a platformei.
+        Giorgio este un exemplu de implicare și pasiune pentru tehnologie și ecologie!
+      </p>
+    </section>
+
+    <!-- Widget Calitate Aer -->
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-700 mb-2">Calitatea Aerului în Adjud</h2>
+      <span id="city-aqi-container" class="block my-4"></span>
+    </section>
 
     <!-- Temperatură -->
-    <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Temperatura actuală</h2>
+    <section>
+      <h2 class="text-2xl font-semibold text-gray-700 mb-2">Temperatura actuală</h2>
       <p class="text-lg">Temperatură:
         <span id="temperatureValue" class="font-bold text-blue-700">--</span> °C
       </p>
       <p id="weatherStatus" class="text-md text-gray-600">Condiții: --</p>
-    </div>
+      <div class="w-full h-64 mt-4">
+        <canvas id="temperatureChart"></canvas>
+      </div>
+    </section>
 
-    <!-- Grafic Temperatură -->
-    <div class="w-full h-64">
-      <canvas id="temperatureChart"></canvas>
-    </div>
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-gray-200 text-sm text-gray-600">
+      © 2025 Asociația Grupul Verde • Dezvoltat de copii și tineri din comunitatea Adjud
+    </footer>
+
   </div>
 
-  <!-- Script widget AQI (inserare dinamica) -->
+  <!-- Script AQICN (calitate aer) -->
   <script type="text/javascript" charset="utf-8">
     (function(w, d, t, f) {
       w[f] = w[f] || function(c, k, n) {
@@ -114,7 +135,7 @@
     }
 
     fetchTemperature();
-    setInterval(fetchTemperature, 60000);
+    setInterval(fetchTemperature, 60000); // actualizare la 1 minut
   </script>
 
 </body>
