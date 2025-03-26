@@ -13,7 +13,10 @@
     <h1 class="text-3xl font-bold text-green-800 mb-2">Monitorizare Calitate Aer și Temperatură - Adjud</h1>
     <p class="text-gray-600 mb-6 text-sm">Un proiect educativ realizat de Asociația Grupul Verde împreună cu elevii Colegiului Tehnic „Gheorghe Balș”, specializarea Protecția Mediului</p>
 
-    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl mb-8 text-left">
+    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl mb-8 text-left flex items-start gap-3">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-2.209 0-4 1.791-4 4v1h8v-1c0-2.209-1.791-4-4-4z" />
+  </svg>
       <h2 class="text-xl font-semibold text-green-700">Despre proiect</h2>
       <p class="text-gray-700 mt-2">
         Proiectul este dezvoltat de <strong>Asociația Grupul Verde</strong> în colaborare cu elevii de la <strong>Colegiul Tehnic „Gheorghe Balș” din Adjud</strong>, specializarea <strong>Protecția Mediului</strong>. 
@@ -36,11 +39,17 @@
     </div>
 
     <!-- Grafic Temperatură -->
-    <div class="w-full h-64 mt-4">
+    <div class="w-full h-96 mt-4 bg-white rounded-xl shadow-inner p-4">
       <canvas id="temperatureChart"></canvas>
     </div>
 
-    <div class="mt-8 text-left text-sm text-gray-500">
+    <div class="mt-8 bg-slate-100 text-left text-sm text-gray-700 rounded-xl p-5 shadow-sm">
+  <div class="flex items-center gap-2 mb-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8 3a1 1 0 100-2 1 1 0 000 2zm.75-7.75a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z" clip-rule="evenodd" />
+    </svg>
+    <span class="text-sm font-semibold text-blue-700 uppercase tracking-wide">Echipă coordonatoare</span>
+  </div>
       <p><strong>Proiect susținut de Asociația Grupul Verde</strong> – Inițiativă educațională ce promovează implicarea tinerilor în tehnologie și protecția mediului prin folosirea datelor reale despre calitatea aerului în comunitatea lor.</p>
       <p class="mt-2">Platforma a fost dezvoltată în scop didactic în cadrul activităților practice desfășurate de elevii de la Colegiul Tehnic „Gheorghe Balș”, sub coordonarea Asociației Grupul Verde.</p>
       <p class="mt-2 font-medium">Proiect coordonat de Marian DUMITRU – UX/UI Designer | Jr Frontend Developer 🧑‍💻 🚀 I design Apps 📲 & Websites 🖥️. România🇷🇴</p>
@@ -132,3 +141,4 @@
 
 </body>
 </html>
+
