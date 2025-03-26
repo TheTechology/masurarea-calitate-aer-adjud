@@ -4,7 +4,7 @@
   <meta property="og:image" content="https://raw.githubusercontent.com/TheTechology/masurarea-calitate-aer-adjud/main/Monitorizare%20Calitate%20Aer%20s%CC%A6i%20Temperatura%CC%86%20-%20Adjud.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asociația Grupul Verde - Proiect Adjud ”Monitorizare Calitate Aer„ </title>
+  <title>Asociația Grupul Verde - Proiect ”Monitorizare Calitate Aer„ </title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,44 @@
 <body class="bg-gradient-to-br from-green-100 to-blue-200 min-h-screen flex flex-col items-center px-4 py-6">
 
   <!-- Header cu logo și titlu -->
-  <header class="w-full max-w-5xl mx-auto flex flex-col items-center mb-6 text-center">
+  <header class="w-full max-w-5xl mx-auto mb-6 px-4">
+  <nav class="flex items-center justify-between py-4">
+    <img src="https://raw.githubusercontent.com/TheTechology/masurarea-calitate-aer-adjud/main/LGV.png" alt="Logo" class="h-12">
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-green-800 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <ul id="navLinks" class="hidden md:flex space-x-6 text-sm font-medium text-green-800">
+      <li><button onclick="togglePopup('aboutPopup')" class="hover:underline">Despre</button></li>
+      <li><button onclick="togglePopup('contactPopup')" class="hover:underline">Contact</button></li>
+      <li><a href="#echipa" class="hover:underline">Echipă</a></li>
+    </ul>
+  </nav>
+  <div class="text-center">
+    <h1 class="text-4xl font-extrabold text-green-900 mb-2">Monitorizare Calitate Aer & Temperatură</h1>
+    <p class="text-sm text-gray-700 max-w-xl mx-auto">Platformă educațională realizată de Asociația Grupul Verde cu implicarea elevilor Colegiului Tehnic „Gheorghe Balș” - Protecția Mediului</p>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  toggleBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden');
+    navLinks.classList.toggle('flex');
+    navLinks.classList.toggle('flex-col');
+    navLinks.classList.toggle('bg-white');
+    navLinks.classList.toggle('absolute');
+    navLinks.classList.toggle('top-16');
+    navLinks.classList.toggle('right-4');
+    navLinks.classList.toggle('p-4');
+    navLinks.classList.toggle('rounded');
+    navLinks.classList.toggle('shadow-lg');
+  });
+</script>
     <img src="https://raw.githubusercontent.com/TheTechology/masurarea-calitate-aer-adjud/main/LGV.png" alt="Asociația Grupul Verde Logo" class="h-20 md:h-24 drop-shadow-lg mb-3">
     <h1 class="text-4xl font-extrabold text-green-900 mb-2">Monitorizare Calitate Aer & Temperatură</h1>
     <p class="text-sm text-gray-700 max-w-xl">Platformă educațională realizată de Asociația Grupul Verde cu implicarea elevilor Colegiului Tehnic „Gheorghe Balș” - Protecția Mediului</p>
@@ -57,34 +94,19 @@
     </section>
 
     <!-- Card coordonare -->
-    <section class="mt-10 bg-slate-100 rounded-xl p-6 text-gray-800 shadow-md" id="echipa">
-      <div class="flex items-center gap-3 mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8 3a1 1 0 100-2 1 1 0 000 2zm.75-7.75a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z" clip-rule="evenodd" />
-        </svg>
-        <span class="uppercase font-semibold text-blue-700">Echipă coordonatoare</span>
-      </div>
-      <p><strong>Proiect coordonat de Marian DUMITRU</strong> – Project Manager și programator al <strong>Asociației Grupul Verde</strong>. Cu o viziune modernă și orientare spre inovație, Marian a ghidat elevii în dezvoltarea acestei platforme interactive, menite să aducă datele despre mediu mai aproape de generația tânără.</p>
-    </section>
+    <section class="mt-10 bg-slate-100 rounded-xl p-6 text-gray-800 shadow-md">
+  <div class="flex items-center gap-3 mb-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-8 3a1 1 0 100-2 1 1 0 000 2zm.75-7.75a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5z" clip-rule="evenodd" />
+    </svg>
+    <span class="uppercase font-semibold text-blue-700">Echipă coordonatoare</span>
+  </div>
+  <p><strong>Proiect coordonat de Marian DUMITRU</strong> – Project Manager și programator al <strong>Asociației Grupul Verde</strong>. Cu o viziune modernă și orientare spre inovație, Marian a ghidat elevii în dezvoltarea acestei platforme interactive, menite să aducă datele despre mediu mai aproape de generația tânără.</p>
+</section>
   <!-- Infografice suplimentare -->
 
 <!-- Infografice suplimentare -->
-<section class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div class="bg-white rounded-xl shadow-md p-5">
-    <h3 class="text-lg font-semibold text-gray-800 mb-2">Istoric temperatură - 7 zile</h3>
-    <canvas id="historyChart"></canvas>
-  </div>
-  <div class="bg-white rounded-xl shadow-md p-5">
-    <h3 class="text-lg font-semibold text-gray-800 mb-2">Date suplimentare meteorologice</h3>
-    <ul class="space-y-2 text-gray-700 text-sm">
-      <li>Aerul resimțit: <span id="feelsLike" class="font-semibold">--</span> °C</li>
-      <li>Presiune atmosferică: <span id="pressure" class="font-semibold">--</span> hPa</li>
-      <li>Indice UV: <span id="uvIndex" class="font-semibold">--</span></li>
-      <li>Viteza vântului: <span id="windSpeed" class="font-semibold">--</span> m/s</li>
-      <li>Umiditate: <span id="humidity" class="font-semibold">--</span> %</li>
-    </ul>
-  </div>
-</section>
+
 </main>
 
 <!-- Script pentru date meteo suplimentare și istoric -->
@@ -231,14 +253,16 @@
 </div>
 
 <!-- Pop-up Contact -->
-<div id="contactPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+<div id="contactPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+  <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
     <h3 class="text-xl font-semibold mb-2 text-green-700">Contact</h3>
-    <p class="text-sm text-gray-700">Adresa sediu: Strada Alexandru Ioan Cuza nr. 64, Adjud, Vrancea</p>
-    <p class="text-sm text-gray-700">Telefon: 07xx xxx xxx</p>
+    <p class="text-sm text-gray-700">Adresa sediu: Strada Alexandru Ioan Cuza 64, Adjud, Vrancea</p>
+    <p class="text-sm text-gray-700">Telefon: +40 (0374) 962 748</p>
+    <p class="text-sm text-gray-700">Website: <a href="https://www.grupulverde.ro" class="text-blue-600 hover:underline" target="_blank">www.grupulverde.ro</a></p>
     <p class="text-sm text-gray-700">Email: <a href="mailto:office@grupulverde.ro" class="text-blue-600 hover:underline">office@grupulverde.ro</a></p>
-    <button onclick="togglePopup('contactPopup')" class="mt-4 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded">Închide</button>
+    <button onclick="togglePopup('contactPopup')" class="mt-4 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded w-full">Închide</button>
   </div>
+</div>
 </div>
 
 <script>
