@@ -12,20 +12,15 @@
   <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-3xl text-center">
     <h1 class="text-3xl font-bold text-gray-800 mb-6">Calitate Aer și Temperatură - Adjud</h1>
 
-    <!-- Widget Calitate Aer -->
+    <!-- Widget Calitate Aer dinamic (AQICN script oficial) -->
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Calitatea Aerului</h2>
-      <div class="flex justify-center">
-        <iframe style="border:0; width:300px; height:200px;"
-                src="https://widget.waqi.info/widget/post/embed/?city=Adjud&l=ro&theme=light">
-        </iframe>
-      </div>
-      <p class="text-sm text-gray-500 mt-2">Date furnizate de AQICN.org</p>
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">Calitatea Aerului în timp real</h2>
+      <span id="city-aqi-container" class="block"></span>
     </div>
 
     <!-- Temperatură -->
     <div class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Temperatura în timp real</h2>
+      <h2 class="text-xl font-semibold text-gray-700 mb-2">Temperatura actuală</h2>
       <p class="text-lg">Temperatură:
         <span id="temperatureValue" class="font-bold text-blue-700">--</span> °C
       </p>
@@ -38,6 +33,30 @@
     </div>
   </div>
 
+  <!-- Script widget AQI (inserare dinamica) -->
+  <script type="text/javascript" charset="utf-8">
+    (function(w, d, t, f) {
+      w[f] = w[f] || function(c, k, n) {
+        s = w[f], k = s['k'] = (s['k'] || (k ? ('&k=' + k) : '')); 
+        s['c'] = c = (c instanceof Array) ? c : [c]; 
+        s['n'] = n = n || 0; 
+        L = d.createElement(t), e = d.getElementsByTagName(t)[0]; 
+        L.async = 1; 
+        L.src = '//feed.aqicn.org/feed/' + (c[n].city) + '/' + (c[n].lang || '') + '/feed.v1.js?n=' + n + k; 
+        e.parentNode.insertBefore(L, e);
+      };
+    })(window, document, 'script', '_aqiFeed');
+  </script>
+
+  <script type="text/javascript" charset="utf-8">
+    _aqiFeed({
+      container: "city-aqi-container",
+      city: "adjud",
+      lang: "ro"
+    });
+  </script>
+
+  <!-- Script temperatură -->
   <script>
     const temperatureValue = document.getElementById('temperatureValue');
     const weatherStatus = document.getElementById('weatherStatus');
@@ -95,7 +114,7 @@
     }
 
     fetchTemperature();
-    setInterval(fetchTemperature, 60000); // actualizare la fiecare minut
+    setInterval(fetchTemperature, 60000);
   </script>
 
 </body>
