@@ -205,65 +205,6 @@
   fetchAdditionalWeather();
 </script>
 
-<!-- Script pentru date meteo suplimentare și istoric -->
-<script>
-  const historyCtx = document.getElementById('historyChart').getContext('2d');
-  const historyChart = new Chart(historyCtx, {
-    type: 'bar',
-    data: {
-      labels: [],
-      datasets: [{
-        label: 'Temperatura medie (°C)',
-        data: [],
-        backgroundColor: 'rgba(16, 185, 129, 0.6)',
-        borderColor: 'rgba(5, 150, 105, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
-      responsive: true
-    }
-  });
-
-  async function fetchAdditionalWeather() {
-    try {
-      const res = await fetch('https://api.openweathermap.org/data/2.5/onecall?lat=46.1667&lon=27.05&exclude=minutely,hourly,alerts&units=metric&appid=345bfb1800c59f8f650f0159b1ad1a71');
-      const data = await res.json();
-
-      // Infografice suplimentare
-      document.getElementById('feelsLike').textContent = data.current.feels_like.toFixed(1);
-      document.getElementById('pressure').textContent = data.current.pressure;
-      document.getElementById('uvIndex').textContent = data.current.uvi;
-      document.getElementById('windSpeed').textContent = data.current.wind_speed;
-      document.getElementById('humidity').textContent = data.current.humidity;
-
-      // Istoric temperatură pe 7 zile
-      const labels = [];
-      const values = [];
-      data.daily.slice(0, 7).forEach(day => {
-        const date = new Date(day.dt * 1000);
-        const label = date.toLocaleDateString('ro-RO', { weekday: 'short' });
-        labels.push(label);
-        values.push(day.temp.day.toFixed(1));
-      });
-
-      historyChart.data.labels = labels;
-      historyChart.data.datasets[0].data = values;
-      historyChart.update();
-
-    } catch (err) {
-      console.error('Eroare date suplimentare:', err);
-    }
-  }
-
-  fetchAdditionalWeather();
-</script>
-
   <!-- Footer elegant -->
   <footer class="w-full bg-slate-800 text-white py-6 mt-12">
   <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
