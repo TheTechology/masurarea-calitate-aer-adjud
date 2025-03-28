@@ -26,6 +26,34 @@
   </style>
 </head>
 <body class="bg-gradient-to-br from-green-100 to-blue-200 min-h-screen px-4 py-6">
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const introPopup = document.createElement('div');
+      introPopup.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60';
+      introPopup.innerHTML = `
+        <div class='bg-white rounded-2xl shadow-2xl max-w-2xl p-8 relative text-gray-800 text-sm leading-relaxed'>
+          <button onclick='this.parentElement.parentElement.remove()' class='absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl'>&times;</button>
+          <h2 class='text-2xl font-bold mb-4 text-green-700'>Despre acest proiect</h2>
+          <p class='mb-3'>„Calitatea aerului în Adjud” este un proiect educațional dezvoltat în cadrul unor ateliere de tehnologie și știință, derulate cu sprijinul Asociației Grupul Verde, alături de copii și tineri din comunitatea locală. Scopul principal este dezvoltarea competențelor digitale, științifice și civice, prin utilizarea senzorilor și a microcontrolerelor pentru măsurarea parametrilor de mediu, cum ar fi temperatura, umiditatea și calitatea aerului.</p>
+          <p class='mb-3'>Acest demers nu are rolul de a critica sau influența autoritățile locale, ci este gândit ca o platformă de învățare practică. Copiii învață să construiască, să interpreteze date reale și să înțeleagă mai bine mediul în care trăiesc. Rezultatele afișate pe această pagină sunt pur informative, având scopul de a stimula curiozitatea, gândirea critică și interesul pentru știință și tehnologie în rândul celor mici.</p>
+          <h3 class='font-semibold mt-4 text-green-800'>Obiectivele proiectului</h3>
+          <ul class='list-disc pl-5 mb-4'>
+            <li>Promovarea educației STEM (Știință, Tehnologie, Inginerie, Matematică) la nivel local.</li>
+            <li>Încurajarea copiilor să exploreze impactul tehnologiei asupra vieții de zi cu zi.</li>
+            <li>Crearea unui spațiu sigur de învățare, în care copiii pot testa, greși și învăța prin practică.</li>
+            <li>Dezvoltarea spiritului civic și al responsabilității față de mediul înconjurător.</li>
+          </ul>
+          <h3 class='font-semibold text-green-800'>Cine sunt realizatorii?</h3>
+          <p>Proiectul este realizat de copii din Adjud, cu vârste între 10 și 14 ani, coordonați de mentori voluntari în cadrul unor ateliere practice de programare și electronică. Toate datele colectate sunt afișate în timp real și sunt folosite exclusiv în scopuri educaționale.</p>
+        </div>`;
+      document.body.appendChild(introPopup);
+    }, 1000);
+  });
+</script>
+
+<!-- CONTINUTUL COMPLET AL PAGINII -->
   <header class="flex flex-col items-center mb-6 fade-in">
     <a href="https://grupulverde.ro/" target="_blank">
       <img class="h-20 md:h-24 drop-shadow-xl logo mb-4" src="https://raw.githubusercontent.com/TheTechology/masurarea-calitate-aer-adjud/main/LGV.png" alt="Logo" />
@@ -107,7 +135,7 @@
           <h3 class="text-xl font-semibold text-green-800 mb-2">Implicarea elevilor</h3>
           <p class="text-gray-700">
             Elevii contribuie activ la dezvoltarea aplicației web educaționale pentru afișarea în timp real a calității aerului. 
-            <strong>Novac Giorgio</strong>, 14 ani, este implicat direct în partea de dezvoltare tehnică și testare.
+            <strong>@NovacGiorgio</strong>, 14 ani, este implicat direct în partea de dezvoltare tehnică și testare.
           </p>
         </div>
         <div class="bg-white rounded-xl shadow p-6">
