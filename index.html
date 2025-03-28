@@ -6,11 +6,11 @@
   <title>Asociația Grupul Verde - Proiect ”Monitorizare Calitate Aer Adjud„ </title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
     .logo:hover {
       transform: scale(1.05);
@@ -26,10 +26,101 @@
   </style>
 </head>
 <body class="bg-gradient-to-br from-green-100 to-blue-200 min-h-screen px-4 py-6">
-  <!-- Conținut existent (nicio modificare aici până la footer) -->
-  <!-- ... păstrăm tot conținutul anterior neschimbat ... -->
+  <header class="flex flex-col items-center mb-6 fade-in">
+    <a href="https://grupulverde.ro/" target="_blank">
+      <img class="h-20 md:h-24 drop-shadow-xl logo mb-4" src="https://raw.githubusercontent.com/TheTechology/masurarea-calitate-aer-adjud/main/LGV.png" alt="Logo" />
+    </a>
+    <h1 class="text-4xl font-extrabold text-green-900 mb-2 text-center">Monitorizare Calitate Aer &amp; Temperatură</h1>
+    <p class="text-sm text-gray-700 max-w-xl text-center">Platformă educațională realizată de Asociația Grupul Verde cu implicarea elevilor Colegiului Tehnic „Gheorghe Balș” - Protecția Mediului</p>
+  </header>
 
-  <!-- FOOTER + BUTOANE SUPLIMENTARE -->
+  <main class="bg-white rounded-3xl shadow-2xl p-8 max-w-5xl mx-auto fade-in">
+    <section class="mb-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="bg-green-100 rounded-xl shadow-md p-4">
+        <p class="text-3xl font-bold text-green-800">23.4°C</p>
+        <p class="text-sm text-gray-600">Temperatură Medie</p>
+      </div>
+      <div class="bg-blue-100 rounded-xl shadow-md p-4">
+        <p class="text-3xl font-bold text-blue-800">48%</p>
+        <p class="text-sm text-gray-600">Umiditate</p>
+      </div>
+      <div class="bg-yellow-100 rounded-xl shadow-md p-4">
+        <p class="text-3xl font-bold text-yellow-700">5.4</p>
+        <p class="text-sm text-gray-600">Indice UV</p>
+      </div>
+      <div class="bg-red-100 rounded-xl shadow-md p-4">
+        <p class="text-3xl font-bold text-red-600">3.1 m/s</p>
+        <p class="text-sm text-gray-600">Viteza Vântului</p>
+      </div>
+    </section>
+
+    <div class="mb-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded shadow flex items-start gap-2">
+      <i class="ph ph-info text-xl mt-0.5"></i>
+      <p><strong>Notă:</strong> Informațiile prezentate mai jos sunt <u>simulări de date</u> pentru testare. Așteptăm răspunsul oficial din partea <strong>Ministerului Mediului</strong> privind furnizarea datelor reale de la senzorii autorizați.</p>
+    </div>
+
+    <section class="mb-10">
+      <div class="flex items-center gap-2 mb-2">
+        <i class="ph ph-thermometer-simple text-red-500 text-2xl"></i>
+        <h2 class="text-xl font-semibold text-gray-800">Temperatura actuală</h2>
+      </div>
+      <p class="text-lg mb-1">Temperatură: <span class="font-bold text-blue-700" id="temperatureValue">--</span> °C</p>
+      <p class="text-md text-gray-600" id="weatherStatus">Condiții: --</p>
+      <p class="text-sm text-gray-500" id="lastUpdate">Ultima actualizare: --</p>
+    </section>
+
+    <div class="bg-white rounded-xl shadow-md p-5">
+      <div class="flex items-center gap-2 mb-2">
+        <i class="ph ph-cloud-rain text-blue-500 text-xl"></i>
+        <h3 class="text-lg font-semibold text-gray-800">Date suplimentare meteorologice</h3>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-indigo-100 rounded-xl text-center p-4">
+          <p class="text-xl font-bold text-indigo-700" id="feelsLikeBox">--</p>
+          <p class="text-xs text-gray-600">Aer resimțit</p>
+        </div>
+        <div class="bg-purple-100 rounded-xl text-center p-4">
+          <p class="text-xl font-bold text-purple-700" id="pressureBox">--</p>
+          <p class="text-xs text-gray-600">Presiune (hPa)</p>
+        </div>
+        <div class="bg-yellow-100 rounded-xl text-center p-4">
+          <p class="text-xl font-bold text-yellow-600" id="uvIndexBox">--</p>
+          <p class="text-xs text-gray-600">Indice UV</p>
+        </div>
+        <div class="bg-blue-100 rounded-xl text-center p-4">
+          <p class="text-xl font-bold text-blue-600" id="windSpeedBox">--</p>
+          <p class="text-xs text-gray-600">Viteza Vântului</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="mt-12 bg-gradient-to-r from-green-200 to-blue-100 rounded-3xl shadow-xl p-8 fade-in">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="ph ph-leaf text-green-700 text-3xl"></i>
+        <h2 class="text-2xl font-bold text-green-900">Despre proiectul educativ</h2>
+      </div>
+      <p class="text-gray-800 text-lg mb-4">
+        <strong>Un proiect educativ realizat de Asociația Grupul Verde</strong> împreună cu elevii Colegiului Tehnic „Gheorghe Balș”, specializarea Protecția Mediului.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="text-xl font-semibold text-green-800 mb-2">Implicarea elevilor</h3>
+          <p class="text-gray-700">
+            Elevii contribuie activ la dezvoltarea aplicației web educaționale pentru afișarea în timp real a calității aerului. 
+            <strong>Novac Giorgio</strong>, 14 ani, este implicat direct în partea de dezvoltare tehnică și testare.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="text-xl font-semibold text-green-800 mb-2">Scopul proiectului</h3>
+          <p class="text-gray-700">
+            Platforma a fost dezvoltată în scop didactic, în cadrul activităților practice desfășurate de elevii de la Colegiul Tehnic „Gheorghe Balș”, sub coordonarea Asociației Grupul Verde. 
+            Proiectul promovează implicarea tinerilor în tehnologie și protecția mediului folosind date reale despre calitatea aerului din comunitatea lor.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="w-full bg-slate-800 text-white py-6 mt-12 fade-in">
     <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
       <div class="text-center md:text-left mb-4 md:mb-0">
@@ -44,7 +135,6 @@
     </div>
   </footer>
 
-  <!-- POP-UPS -->
   <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
     <div class="bg-white rounded-xl shadow-xl max-w-xl p-6 relative">
       <button onclick="closePopup()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
@@ -74,11 +164,9 @@
           </div>
         `
       };
-
       document.getElementById('popupContent').innerHTML = content[type] || '';
       document.getElementById('popup').classList.remove('hidden');
     }
-
     function closePopup() {
       document.getElementById('popup').classList.add('hidden');
     }
